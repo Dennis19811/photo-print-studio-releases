@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo Print Studio — הורדה</title>
+<meta name="description" content="הורדת Photo Print Studio — הגרסה האחרונה ל-Windows, Mac ו-iPad עם הוראות התקנה בעברית">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card-2: #1f232c;
+    --line: #2a2f3a;
+    --text: #f2f3f5;
+    --muted: #9aa1ad;
+    --accent: #0a84ff;
+    --accent-2: #3d9dff;
+    --ok: #30d158;
+    --warn: #ffd60a;
+    --warn-bg: #2a2410;
+    --danger: #ff453a;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: "Heebo", -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    padding: 24px 16px 48px;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 22px; }
+  .logo { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+  h1 { font-size: 28px; margin: 0 0 6px; font-weight: 800; }
+  .sub { color: var(--muted); margin: 0; font-size: 16px; }
+
+  .status {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 18px; margin-bottom: 18px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  }
+  .status .ver { font-size: 20px; font-weight: 800; }
+  .status .date { color: var(--muted); font-size: 14px; }
+  .status .spin { width: 18px; height: 18px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin .9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: #0a84ff22; color: var(--accent-2); border: 1px solid #0a84ff55; }
+  .badge.you { background: #30d15822; color: var(--ok); border-color: #30d15866; }
+  .badge.beta { background: #ffd60a22; color: var(--warn); border-color: #ffd60a66; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 18px; margin-bottom: 16px;
+  }
+  .card.mine { border-color: var(--accent); box-shadow: 0 0 0 3px #0a84ff33; }
+  .card h2 { font-size: 22px; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .card h2 .ic { font-size: 26px; }
+  .card .hint { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+
+  a.btn, button.btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    background: var(--accent); color: #fff; text-decoration: none; border: 0; cursor: pointer;
+    font: inherit; font-size: 19px; font-weight: 700; padding: 16px 18px; border-radius: 14px;
+    margin-bottom: 10px; transition: background .15s, transform .05s;
+  }
+  a.btn:hover { background: var(--accent-2); }
+  a.btn:active { transform: scale(.99); }
+  a.btn .meta { font-size: 13px; font-weight: 500; opacity: .85; }
+  a.btn.secondary { background: var(--card-2); color: var(--text); border: 1px solid var(--line); }
+  a.btn.secondary:hover { background: #262b36; }
+  .soon {
+    background: var(--card-2); border: 1px dashed var(--line); color: var(--muted);
+    border-radius: 14px; padding: 16px; text-align: center; font-weight: 500; margin-bottom: 10px;
+  }
+
+  details { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
+  summary { cursor: pointer; font-weight: 700; font-size: 16px; list-style: none; display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "◀"; font-size: 11px; color: var(--muted); transition: transform .15s; }
+  details[open] > summary::before { transform: rotate(-90deg); }
+  ol { line-height: 1.75; padding-inline-start: 22px; margin: 10px 0 0; }
+  li { margin-bottom: 8px; }
+  b { font-weight: 700; }
+  kbd, code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em;
+    background: #0b0d12; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px;
+  }
+  .note {
+    background: var(--warn-bg); border: 1px solid #ffd60a44; border-radius: 12px;
+    padding: 12px 14px; margin-top: 14px; font-size: 15px;
+  }
+  .note h3 { margin: 0 0 8px; font-size: 16px; color: var(--warn); }
+  .codebox { position: relative; margin-top: 10px; }
+  .codebox pre {
+    direction: ltr; text-align: left; margin: 0; background: #0b0d12; border: 1px solid var(--line);
+    border-radius: 10px; padding: 12px 14px; padding-inline-end: 84px; overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; white-space: pre-wrap; word-break: break-all;
+  }
+  .codebox button {
+    position: absolute; top: 8px; left: 8px; font: inherit; font-size: 13px; font-weight: 700;
+    background: var(--card-2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+    padding: 5px 10px; cursor: pointer;
+  }
+  .codebox button:hover { background: #262b36; }
+
+  .beta { border-color: #ffd60a55; }
+  .beta summary { font-size: 18px; }
+  .beta .inner { padding-top: 10px; }
+  .beta .plat { margin-top: 14px; }
+  .beta .plat h4 { margin: 0 0 8px; font-size: 16px; color: var(--muted); }
+
+  .error {
+    background: #2a1512; border: 1px solid #ff453a55; border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
+  }
+  .error h2 { margin: 0 0 6px; font-size: 18px; color: var(--danger); }
+  .hidden { display: none !important; }
+
+  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
+  footer a { color: var(--accent-2); }
+  @media (max-width: 420px) {
+    h1 { font-size: 24px; }
+    a.btn, button.btn { font-size: 17px; padding: 14px 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">🖨️</div>
+    <h1>Photo Print Studio</h1>
+    <p class="sub">הורדת הגרסה האחרונה — Windows, Mac ו-iPad</p>
+  </header>
+
+  <div class="status" id="status">
+    <div class="spin" aria-hidden="true"></div>
+    <div>טוען את הגרסה האחרונה…</div>
+  </div>
+
+  <div class="error hidden" id="error">
+    <h2>לא הצלחנו לטעון את רשימת הגרסאות</h2>
+    <p style="margin:0 0 12px">אפשר להוריד ישירות מעמוד הגרסאות ב-GitHub (הקובץ המתאים נמצא תחת <b>Assets</b>):</p>
+    <a class="btn" href="https://github.com/Dennis19811/photo-print-studio-releases/releases/latest">⬇️ לעמוד הגרסה האחרונה ב-GitHub</a>
+  </div>
+
+  <!-- ===== Windows ===== -->
+  <section class="card" id="card-win">
+    <h2><span class="ic">🪟</span> Windows <span class="badge you hidden" data-you>המחשב שלך</span></h2>
+    <p class="hint">Windows 10 / 11, 64-bit</p>
+    <div id="win-buttons"></div>
+    <details id="steps-win">
+      <summary>הוראות התקנה ב-Windows</summary>
+      <ol>
+        <li>הורד את קובץ ההתקנה <code>PhotoPrintStudio-Setup-…exe</code> (כ-600 MB — ההורדה יכולה לקחת כמה דקות).</li>
+        <li>פתח את הקובץ שהורד (לחיצה כפולה).</li>
+        <li>אם מופיע מסך כחול של <b>Windows protected your PC / SmartScreen</b>: לחץ על <b>More info</b> (מידע נוסף) ואז על <b>Run anyway</b> (הפעל בכל זאת). זה קורה כי ההתקנה עדיין לא חתומה דיגיטלית — זה תקין.</li>
+        <li>אשר את בקשת ההרשאות של Windows (<b>Yes / כן</b>) והמתן לסיום ההתקנה. התוכנה תיפתח אוטומטית בסיום.</li>
+        <li>חבר את המדפסת ב-USB. עדכונים עתידיים יורדים אוטומטית מתוך התוכנה.</li>
+      </ol>
+    </details>
+  </section>
+
+  <!-- ===== Mac ===== -->
+  <section class="card" id="card-mac">
+    <h2><span class="ic">🍎</span> Mac <span class="badge you hidden" data-you>המחשב שלך</span></h2>
+    <p class="hint">
+      איזה Mac יש לך? לחץ על <b></b> (תפוח, פינה שמאלית עליונה) ← <b>אודות ה-Mac הזה</b>.
+      אם כתוב <b>שבב / Chip</b> Apple M1–M4 → בחר "שבב Apple". אם כתוב <b>מעבד / Processor</b> Intel → בחר "Intel".
+    </p>
+    <div id="mac-buttons"></div>
+    <details id="steps-mac">
+      <summary>הוראות התקנה ב-Mac</summary>
+      <ol>
+        <li>הורד את קובץ ה-<code>.dmg</code> המתאים למחשב שלך (כ-600 MB).</li>
+        <li>פתח את הקובץ שהורד — ייפתח חלון עם האייקון של <b>Photo Print Studio</b> ותיקיית <b>Applications</b>.</li>
+        <li>גרור את <b>Photo Print Studio</b> לתוך <b>Applications</b> (יישומים).</li>
+        <li>פתח את <b>Applications</b> ← לחיצה כפולה על <b>Photo Print Studio</b>.</li>
+        <li>חבר את המדפסת ב-USB.</li>
+      </ol>
+
+      <!-- TODO: remove this whole block once Mac builds are signed & notarized -->
+      <div class="note" id="mac-unsigned-note">
+        <h3>⚠️ בפתיחה הראשונה macOS יגיד שלא ניתן לאמת את האפליקציה</h3>
+        <p style="margin:0 0 8px">זה קורה כי הגרסה הנוכחית עדיין לא חתומה ע"י Apple. <b>אל תלחץ על "העבר לפח / Move to Trash"</b>. במקום זה:</p>
+        <ol style="margin-top:0">
+          <li>לחץ <b>סיום / Done</b> בהודעה.</li>
+          <li>פתח <b>הגדרות המערכת</b> (System Settings) ← <b>פרטיות ואבטחה</b> (Privacy &amp; Security).</li>
+          <li>גלול למטה עד לקטע <b>אבטחה</b> — תופיע שורה על Photo Print Studio שנחסמה. לחץ <b>פתח בכל זאת</b> (Open Anyway).</li>
+          <li>הזן את סיסמת המחשב (או Touch ID) ← לחץ <b>פתח</b> (Open). מעכשיו האפליקציה תיפתח רגיל.</li>
+        </ol>
+        <p style="margin:10px 0 0">אם הכפתור "פתח בכל זאת" לא מופיע — פתח את <b>Terminal</b> (מסוף), הדבק את הפקודה הבאה ולחץ Enter:</p>
+        <div class="codebox">
+          <pre id="xattr-cmd">xattr -dr com.apple.quarantine "/Applications/Photo Print Studio.app"</pre>
+          <button type="button" data-copy="#xattr-cmd">העתק</button>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== iPad ===== -->
+  <section class="card" id="card-ipad">
+    <h2><span class="ic">📱</span> iPad <span class="badge you hidden" data-you>המכשיר שלך</span></h2>
+    <p class="hint">עמדת סלפי — הדפסה ישירה מהאייפד למדפסת בכבל USB. ההתקנה זמינה רק לאייפדים שנרשמו מראש.</p>
+    <a class="btn" href="./ipad/install.html">🤳 לעמוד ההתקנה באייפד</a>
+    <details id="steps-ipad">
+      <summary>הוראות התקנה באייפד</summary>
+      <ol>
+        <li>פתח את הקישור <b>מהאייפד עצמו</b> (ב-Safari).</li>
+        <li>לחץ על <b>התקן באייפד</b> ואשר. האייקון יופיע במסך הבית.</li>
+        <li>עקוב אחרי ההוראות בעמוד ההתקנה (מצב מפתח, אישור המפתח, הפעלת הדרייבר).</li>
+      </ol>
+    </details>
+  </section>
+
+  <!-- ===== Beta ===== -->
+  <section class="card beta hidden" id="card-beta">
+    <details id="beta-details">
+      <summary>🧪 גרסת ניסיון (בטא) <span class="badge beta" id="beta-ver"></span></summary>
+      <div class="inner">
+        <p class="hint">גרסה חדשה יותר שעדיין בבדיקות. מומלצת רק אם ביקשו ממך להתקין אותה או אם חסר משהו בגרסה הרגילה.</p>
+        <div class="plat"><h4>🪟 Windows</h4><div id="beta-win"></div></div>
+        <div class="plat"><h4>🍎 Mac</h4><div id="beta-mac"></div></div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <a href="https://github.com/Dennis19811/photo-print-studio-releases/releases">כל הגרסאות ב-GitHub</a>
+    · <a href="./ipad/install.html">התקנה באייפד</a>
+  </footer>
+</div>
+
+<script>
+/* ===== PPS_SELECT_BEGIN (pure logic — testable with node) ===== */
+var PPS = (function () {
+  var RE = {
+    win: /^PhotoPrintStudio-Setup-.*\.exe$/i,
+    arm: /-mac-arm64\.dmg$/i,
+    x64: /-mac-x64\.dmg$/i
+  };
+  function when(r) { return +new Date(r.published_at || r.created_at || 0); }
+  function pick(rel, re) {
+    if (!rel) return null;
+    var a = rel.assets || [];
+    for (var i = 0; i < a.length; i++) if (re.test(a[i].name)) return a[i];
+    return null;
+  }
+  function assetsOf(rel) { return { win: pick(rel, RE.win), arm: pick(rel, RE.arm), x64: pick(rel, RE.x64) }; }
+
+  // Returns { full: {release, assets}|null, beta: {latest, win, arm, x64}|null }
+  // beta.<plat> = newest prerelease (newer than full) that actually ships that platform's asset.
+  function selectReleases(releases) {
+    var ok = (releases || []).filter(function (r) { return r && !r.draft; });
+    ok.sort(function (a, b) { return when(b) - when(a); });
+    var full = null;
+    for (var i = 0; i < ok.length; i++) if (!ok[i].prerelease) { full = ok[i]; break; }
+    var fullTime = full ? when(full) : -Infinity;
+    var betas = ok.filter(function (r) { return r.prerelease && when(r) > fullTime; });
+    function betaFor(re) {
+      for (var j = 0; j < betas.length; j++) { var a = pick(betas[j], re); if (a) return { release: betas[j], asset: a }; }
+      return null;
+    }
+    return {
+      full: full ? { release: full, assets: assetsOf(full) } : null,
+      beta: betas.length ? { latest: betas[0], win: betaFor(RE.win), arm: betaFor(RE.arm), x64: betaFor(RE.x64) } : null
+    };
+  }
+  function version(rel) { return rel ? String(rel.tag_name || rel.name || '').replace(/^v/i, '') : ''; }
+  function mb(bytes) { return Math.round((bytes || 0) / 1048576) + ' MB'; }
+  function detectOS(ua, touchPoints) {
+    ua = ua || '';
+    if (/iPad/i.test(ua) || (/Macintosh/i.test(ua) && touchPoints > 1)) return 'ipad';
+    if (/iPhone|iPod/i.test(ua)) return 'ipad';
+    if (/Macintosh|Mac OS X/i.test(ua)) return 'mac';
+    if (/Windows/i.test(ua)) return 'win';
+    return 'other';
+  }
+  return { selectReleases: selectReleases, version: version, mb: mb, detectOS: detectOS };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = PPS;
+/* ===== PPS_SELECT_END ===== */
+
+(function () {
+  var API = 'https://api.github.com/repos/Dennis19811/photo-print-studio-releases/releases?per_page=100';
+  var $ = function (s) { return document.querySelector(s); };
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function fmtDate(iso) {
+    try { return new Date(iso).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' }); }
+    catch (e) { return (iso || '').slice(0, 10); }
+  }
+  function btn(asset, label, extra) {
+    if (!asset) return '';
+    return '<a class="btn" href="' + esc(asset.browser_download_url) + '" rel="noopener">' +
+      '<span>⬇️ ' + esc(label) + '</span>' +
+      '<span class="meta">' + esc(PPS.mb(asset.size)) + (extra ? ' · ' + esc(extra) : '') + '</span></a>';
+  }
+  function soon(text) { return '<div class="soon">' + esc(text) + '</div>'; }
+
+  // OS detection + highlight
+  var os = PPS.detectOS(navigator.userAgent, navigator.maxTouchPoints || 0);
+  var cardFor = { win: '#card-win', mac: '#card-mac', ipad: '#card-ipad' };
+  if (cardFor[os]) {
+    var card = $(cardFor[os]);
+    card.classList.add('mine');
+    var you = card.querySelector('[data-you]'); if (you) you.classList.remove('hidden');
+    var det = card.querySelector('details'); if (det) det.open = true;
+    // move the visitor's card to the top
+    card.parentNode.insertBefore(card, $('#card-win'));
+  }
+
+  // copy buttons
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (b) {
+    b.addEventListener('click', function () {
+      var t = $(b.getAttribute('data-copy')); var text = t ? t.textContent : '';
+      function done() { var old = b.textContent; b.textContent = 'הועתק ✓'; setTimeout(function () { b.textContent = old; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+      else fallback();
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(t); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) {}
+      }
+    });
+  });
+
+  function render(sel) {
+    var full = sel.full, beta = sel.beta;
+    var status = $('#status');
+    if (full) {
+      var r = full.release;
+      status.innerHTML = '<span class="badge">גרסה יציבה</span>' +
+        '<span class="ver">' + esc(PPS.version(r)) + '</span>' +
+        '<span class="date">פורסמה ב-' + esc(fmtDate(r.published_at)) + '</span>';
+      $('#win-buttons').innerHTML = full.assets.win
+        ? btn(full.assets.win, 'הורדה ל-Windows', 'גרסה ' + PPS.version(r))
+        : soon('גרסת Windows לגרסה זו תגיע בקרוב');
+      $('#mac-buttons').innerHTML = (full.assets.arm || full.assets.x64)
+        ? btn(full.assets.arm, 'Mac עם שבב Apple (M1–M4)', 'גרסה ' + PPS.version(r)) +
+          btn(full.assets.x64, 'Mac עם Intel', 'גרסה ' + PPS.version(r))
+        : soon('גרסת מק תגיע בקרוב');
+    } else {
+      status.innerHTML = '<span class="badge">אין עדיין גרסה יציבה</span><span class="date">ניתן להוריד את גרסת הניסיון למטה</span>';
+      $('#win-buttons').innerHTML = soon('גרסת Windows יציבה תגיע בקרוב — ראה גרסת ניסיון למטה');
+      $('#mac-buttons').innerHTML = soon('גרסת מק תגיע בקרוב — ראה גרסת ניסיון למטה');
+    }
+
+    if (beta) {
+      var bc = $('#card-beta'); bc.classList.remove('hidden');
+      $('#beta-ver').textContent = PPS.version(beta.latest) + ' · ' + fmtDate(beta.latest.published_at);
+      $('#beta-win').innerHTML = beta.win
+        ? btn(beta.win.asset, 'הורדה ל-Windows (בטא)', 'גרסה ' + PPS.version(beta.win.release))
+        : soon('אין גרסת ניסיון ל-Windows כרגע');
+      $('#beta-mac').innerHTML = (beta.arm || beta.x64)
+        ? (beta.arm ? btn(beta.arm.asset, 'Mac עם שבב Apple (M1–M4) — בטא', 'גרסה ' + PPS.version(beta.arm.release)) : '') +
+          (beta.x64 ? btn(beta.x64.asset, 'Mac עם Intel — בטא', 'גרסה ' + PPS.version(beta.x64.release)) : '')
+        : soon('גרסת מק תגיע בקרוב');
+      // If the visitor's OS has no stable asset but the beta has one — open the beta section for them.
+      var noStable = !full || (os === 'win' && !full.assets.win) || (os === 'mac' && !full.assets.arm && !full.assets.x64);
+      var betaHas = (os === 'win' && beta.win) || (os === 'mac' && (beta.arm || beta.x64));
+      if (noStable && betaHas) $('#beta-details').open = true;
+    }
+  }
+
+  function fail() {
+    $('#status').classList.add('hidden');
+    $('#error').classList.remove('hidden');
+    var latest = 'https://github.com/Dennis19811/photo-print-studio-releases/releases/latest';
+    $('#win-buttons').innerHTML = '<a class="btn secondary" href="' + latest + '">⬇️ הורדה ל-Windows מ-GitHub</a>';
+    $('#mac-buttons').innerHTML = '<a class="btn secondary" href="' + latest + '">⬇️ הורדה ל-Mac מ-GitHub</a>';
+  }
+
+  var timer = setTimeout(function () { fail(); }, 15000);
+  fetch(API, { headers: { 'Accept': 'application/vnd.github+json' } })
+    .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function (data) { clearTimeout(timer); render(PPS.selectReleases(data)); })
+    .catch(function (err) { clearTimeout(timer); console.error('releases fetch failed', err); fail(); });
+})();
+</script>
+</body>
+</html>
